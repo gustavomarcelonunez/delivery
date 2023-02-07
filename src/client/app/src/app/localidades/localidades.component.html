@@ -1,0 +1,47 @@
+<h2>Localidades<a routerLink="/localidades/new" class="btn float-right" style="border-color: black;" style="background-color: lightsteelblue;">Nueva localidad</a></h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Código Postal</th>
+        <th>Provincia</th>
+        <th>País</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let localidad of resultsPage.results; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ localidad.nombre }}</td>
+        <td>{{ localidad.cp }}</td>
+        <td>{{ localidad.provincia.nombre }}</td>
+        <td>{{ localidad.provincia.pais.nombre }}</td>
+        <th>
+          <a routerLink="/localidades/{{localidad.id}}"><i class="fa fa-pencil fa-fw" title="Editar"></i></a>
+          <a (click)="remove(localidad.id)" [routerLink]=""><i class="fa fa-remove" title="Eliminar"></i></a>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" [hidden]="resultsPage.count <= 1">
+    <ul class="pagination pagination-centered">
+      <li class="page-item">
+        <a class="page-link" (click)="showPage(-2)">&laquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="showPage(-1)">&lsaquo;</a>
+      </li>
+      <li *ngFor="let t of pages; trackBy: $index" [ngClass]="{true: 'active'}[t+1 === currentPage]">
+        <a class="page-link" (click)="showPage(t + 1)"> {{t+1}} </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="showPage(-3)">&rsaquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="showPage(-4)">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
+</div>

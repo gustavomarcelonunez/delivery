@@ -1,0 +1,76 @@
+<div *ngIf="remito">
+    <h2>Detalles remito: {{ uppercase }}
+    <a (click)="save()" class="btn float-right" style="border-color: black;"
+        style="background-color: lightsteelblue;">Cambiar estado entrega</a></h2>
+    <br>
+    <form #form="ngForm">
+        <div class="form-group inline">
+            <div class="form-group">
+                <label>Estado: </label>
+                &nbsp;
+                <td *ngIf="remito.entregado === true">
+                    <input name="SI" placeholder="ENTREGADO" class="labelOk" readonly /></td>
+                <td *ngIf="remito.entregado === false">
+                    <input name="NO" placeholder="NO ENTREGADO" class="labelNoOk" readonly />
+                </td>
+                <br>
+
+                <label for="name">Domicilio Entrega:</label>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Calle</th>
+                                <th>Altura</th>
+                                <th>Piso</th>
+                                <th>Localidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td><input [(ngModel)]="remito.domicilioEntrega.calle" name="calle" placeholder="Calle"
+                                    class="form-control" readonly />
+                            </td>
+                            <td><input [(ngModel)]="remito.domicilioEntrega.altura" name="altura" placeholder="Calle"
+                                    class="form-control" readonly />
+                            </td>
+                            <td><input [(ngModel)]="remito.domicilioEntrega.pisoDpto" name="pisoDpto"
+                                    placeholder="Calle" class="form-control" readonly />
+                            </td>
+                            <td><input [(ngModel)]="remito.domicilioEntrega.localidad.nombre" name="localidad"
+                                    placeholder="Calle" class="form-control" readonly />
+                            </td>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Dom">Artículos: </label>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let articulosPedido of resultsPage.results; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ articulosPedido.articulo.codigo }}</td>
+                        <td>{{ articulosPedido.articulo.nombre }}</td>
+                        <td>{{ articulosPedido.cantidad }}</td>
+                </tbody>
+            </table>
+        </div>
+        &nbsp;
+        <button (click)="goBack()" class="btn" style="border-color: black;"
+            style="background-color: grey;">Atrás</button>
+    </form>
+    &nbsp;&nbsp;&nbsp;
+</div>

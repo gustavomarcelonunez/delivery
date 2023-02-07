@@ -1,0 +1,3 @@
+[submodule "base"]
+	path = base
+	url = ssh://git@git.fi.mdn.unp.edu.ar:25000/labprog/core/infraestructura-tps.git

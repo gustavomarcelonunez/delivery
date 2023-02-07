@@ -1,0 +1,116 @@
+<div *ngIf="pedido">
+    <h2>Detalles pedido{{ uppercase }}</h2>
+    <form #form="ngForm">
+        <div class="form-group inline">
+            <label id="fecha" for="date">Fecha:</label>
+            &nbsp;
+            <ngb-datepicker name="date" [(ngModel)]="date"></ngb-datepicker>
+        </div>
+        <div class="form-group">
+            <label for="name">Razón social cliente:</label>
+            <input [(ngModel)]="pedido.cliente" name="cliente" placeholder="Razón social" class="form-control" required
+                [ngbTypeahead]="searchCliente" [editable]="false" [resultFormatter]="resultFormat"
+                [inputFormatter]="inputFormat" />
+        </div>
+        <div class="form-group">
+            <label for="name">Cuit:</label>
+            <input [(ngModel)]="pedido.cliente" name="cliente" placeholder="Cuit" class="form-control" required
+                [ngbTypeahead]="searchCliente" [editable]="false" [resultFormatter]="resultCuitFormat"
+                [inputFormatter]="inputCuitFormat" readonly />
+        </div>
+        <div class="form-group">
+            <label for="Dom">Domicilio entrega: </label>
+        </div>
+        <div class="table-responsive">
+            <table *ngIf="pedido.cliente" class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Calle</th>
+                        <th>Altura</th>
+                        <th>Piso</th>
+                        <th>Localidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td><input [(ngModel)]="pedido.domicilioEntrega" name="domicilioEntrega" placeholder="Calle"
+                            class="form-control" [ngbTypeahead]="searchDomicilio" [editable]="false"
+                            [resultFormatter]="resultDomicilioFormat" [inputFormatter]="inputDomicilioFormat"
+                            required />
+                    </td>
+                    <td><input [(ngModel)]="pedido.domicilioEntrega" name="domicilioEntrega" placeholder="Altura"
+                            class="form-control" [ngbTypeahead]="searchDomicilio" [editable]="false"
+                            [resultFormatter]="resultDomicilioAlturaFormat"
+                            [inputFormatter]="inputDomicilioAlturaFormat" readonly />
+                    </td>
+                    <td><input [(ngModel)]="pedido.domicilioEntrega" name="domicilioEntrega" placeholder="Piso Dpto"
+                            class="form-control" [ngbTypeahead]="searchDomicilio" [editable]="false"
+                            [resultFormatter]="resultDomicilioPisoFormat" [inputFormatter]="inputDomicilioPisoFormat"
+                            readonly />
+                    </td>
+                    <td *ngIf="pedido.domicilioEntrega"><input [(ngModel)]="pedido.domicilioEntrega.localidad"
+                            name="localidad" placeholder="Localidad" class="form-control"
+                            [ngbTypeahead]="searchLocalidad" [editable]="false" [resultFormatter]="resultNombreFormat"
+                            [inputFormatter]="inputNombreFormat" readonly />
+                    </td>
+                    <td></td>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label for="Dom">Artículos pedido: </label>
+        </div>
+
+        <div class="table-responsive">
+            <table id="miTabla" class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Precio</th>
+                        <th><button (click)="addArticulosPedido()" class="btn" style="border-color: black;"
+                                style="background-color: lightsteelblue;">Agregar artículo</button></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let articulosPedido of pedido.articulosPedido ; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td><input [(ngModel)]="articulosPedido.articulo" name="articulo{{i}}" placeholder="Código"
+                                class="form-control" [ngbTypeahead]="searchArticulo" [editable]="false"
+                                [resultFormatter]="resultArticuloFormat" [inputFormatter]="inputArticuloFormat"
+                                required />
+                        </td>
+                        <td><input [(ngModel)]="articulosPedido.articulo" name="articulo{{i}}" placeholder="Nombre"
+                                class="form-control" [ngbTypeahead]="searchArticulo" [editable]="false"
+                                [resultFormatter]="resultNombreFormat" [inputFormatter]="inputNombreFormat" required />
+                        </td>
+                        <td><input [(ngModel)]="articulosPedido.cantidad" name="cantidad{{i}}" placeholder="Cantidad"
+                                class="form-control" required />
+                        </td>
+                        <td><input [(ngModel)]="articulosPedido.articulo" name="articulo{{i}}"
+                                placeholder="Precio Unitario" class="form-control" [ngbTypeahead]="searchArticulo"
+                                [editable]="false" [resultFormatter]="resultPrecioUnitarioFormat"
+                                [inputFormatter]="inputPrecioUnitarioFormat" readonly required />
+                        </td>
+                        <td><input [(ngModel)]="articulosPedido.precio" name="precio{{i}}" placeholder="Precio"
+                                class="form-control" readonly />
+                        </td>
+                        <td>
+                            <button (click)=" removeArticuloPedido(articulosPedido)" class="btn btn-default"><i
+                                    class="fa fa-remove" title="Eliminar"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button (click)="goBack()" class="btn" style="border-color: black;"
+            style="background-color: grey;">Atrás</button>
+        &nbsp;
+        <button (click)="save()" [disabled]="!form.valid" class="btn" style="border-color: black;" style="
+            background-color: lightsteelblue;">Guardar</button>
+    </form>
+    &nbsp;&nbsp;&nbsp;
+</div>

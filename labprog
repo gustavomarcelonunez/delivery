@@ -1,0 +1,29 @@
+#!/bin/bash
+
+PROJECT=delivery_gustavonunez
+
+if [ -z "$PROJECT" ]
+then
+     echo "Debe editar el script labprog y definir la variable \$PROJECT con su nombre"
+     exit 1
+fi
+
+case "$1" in
+  install ) echo "Instalando..."
+            docker-compose -p $PROJECT -f base/docker-compose.yml --project-directory . run client ./install.sh
+            ;;
+  up ) echo "Levantando servidores.."
+       docker-compose -p $PROJECT -f base/docker-compose.yml --project-directory . up -d
+       ;;
+  down ) echo "Deteniendo servidores.."
+       docker-compose -p $PROJECT -f base/docker-compose.yml --project-directory . down
+       ;;
+  bash ) echo "Conectando con $2"
+     docker exec -it $PROJECT\_$2_1 bash
+     ;;
+  test ) echo "Testing"
+     docker exec -t -w /home/node/app $PROJECT\_client_1 npm test
+     ;;
+  * ) echo "Opción inválida."
+      ;;
+esac

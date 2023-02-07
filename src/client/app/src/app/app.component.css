@@ -1,0 +1,30 @@
+body {
+  background-color: rgba(194, 211, 208, 0.212);
+  background-image: url("../images/bg.jpg");
+  background-size: cover;
+  background-origin: content-box;
+}
+
+img {
+  width: 50%;
+  opacity: 0.9;
+  border-radius: 8px;
+}
+
+.labelOk {
+background-color: rgb(161, 252, 161);
+height: 35px;
+border-radius: 5px;
+text-align: center;
+}
+
+.labelNoOk {
+    background-color: rgb(245, 156, 156);
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+    }
+
+   
+  
+

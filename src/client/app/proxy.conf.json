@@ -1,0 +1,6 @@
+{
+    "/rest/": {
+        "target": "http://delivery_gustavonunez_server_1:8080/labprog-server/",
+        "secure": false
+    }
+}

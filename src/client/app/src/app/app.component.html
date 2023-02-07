@@ -1,0 +1,20 @@
+<div [ngStyle]="{'background': 'lightgrey'}"
+    class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom border-dark">
+    <h5 class="my-0 mr-md-auto font-weight-bold">Delivery</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" routerLink="/">Inicio</a>
+        <a class="p-2 text-dark" routerLink="/articulos">Articulos</a>
+        <a class="p-2 text-dark" routerLink="/clientes">Clientes</a>
+        <a class="p-2 text-dark" routerLink="/pedidos">Pedidos</a>
+        <a class="p-2 text-dark" routerLink="/remitos">Remitos</a>
+        <a class="p-2 text-dark" routerLink="/facturas">Facturas</a>
+        <select name="Mas">
+            <option value="2" routerLink="/localidades">Localidades</option>
+            <option value="3" routerLink="/provincias">Provincias</option>
+            <option value="4" routerLink="/paises">Países</option>
+        </select>
+    </nav>
+</div>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

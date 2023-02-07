@@ -1,0 +1,3 @@
+src/client/start.sh
+client/app/node_modules
+.vscode/

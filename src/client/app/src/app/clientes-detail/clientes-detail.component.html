@@ -1,0 +1,70 @@
+<div *ngIf="cliente">
+    <h2>Detalles cliente{{ uppercase }}</h2>
+    <form #form="ngForm">
+        <div class="form-group">
+            <label for="name">Razón Social:</label>
+            <input [(ngModel)]="cliente.razonSocial" name="razonSocial" placeholder="Razón Social" class="form-control"
+                minlength="3" maxlength="40" required />
+        </div>
+        <div class="form-group">
+            <label for="name">Cuit:</label>
+            <input [(ngModel)]="cliente.cuit" name="cuit" placeholder="Cuit" class="form-control" minlength="5"
+                maxlength="15" title="Solo números. Tamaño mínimo: 5. Tamaño máximo: 15" pattern="[0-9]+" required />
+        </div>
+        <div class="form-group">
+            <label for="Dom">Domicilios: </label>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Calle</th>
+                        <th>Altura</th>
+                        <th>Piso</th>
+                        <th>Localidad</th>
+                        <th><button (click)="addDomicilio()" class="btn" style="border-color: black;"
+                                style="background-color: lightsteelblue;">Agregar domicilio</button></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let domicilio of cliente.domiciliosEntrega ; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td><input [(ngModel)]="domicilio.calle" name="calle{{i}}" placeholder="Calle"
+                                class="form-control" minlength="3" maxlength="15"
+                                title="Letras y/o números. Tamaño mínimo: 3. Tamaño máximo: 15" 
+                                required />
+                        </td>
+                        <td><input [(ngModel)]="domicilio.altura" name="altura{{i}}" placeholder="Altura"
+                                class="form-control" minlength="1" maxlength="7"
+                                title="Solo números. Tamaño mínimo: 1. Tamaño máximo: 7" pattern="[0-9]+" required />
+                        </td>
+                        <td><input [(ngModel)]="domicilio.pisoDpto" name="pisoDpto{{i}}" placeholder="Piso Dpto"
+                                class="form-control" minlength="1" maxlength="3"
+                                title="Solo números. Tamaño mínimo: 1. Tamaño máximo: 3" pattern="[0-9]+" required />
+                        </td>
+                        <td><input [(ngModel)]="domicilio.localidad" name="localidad{{i}}" placeholder="Localidad"
+                                class="form-control" minlength="3" maxlength="15" title="Seleccione una localidad" required
+                                [ngbTypeahead]="searchLocalidad" [editable]="false" [resultFormatter]="resultFormat"
+                                [inputFormatter]="inputFormat" />
+                        </td>
+                        <td>
+                            <button (click)=" removeDomicilio(domicilio)" class="btn btn-default"><i
+                                    class="fa fa-remove" title="Eliminar"></i></button>
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button (click)="goBack()" class="btn" style="border-color: black;"
+            style="background-color: lightsteelblue;">Atrás</button>
+        &nbsp;
+        <button (click)="save()" [disabled]="!form.valid" class="btn" style="border-color: black;" style="
+            background-color: gray;">Guardar</button>
+    </form>
+</div>

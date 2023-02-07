@@ -1,0 +1,15 @@
+<div *ngIf="pais">
+    <h2>Ingrese nombre País{{ uppercase }}</h2>
+    <form #form="ngForm">
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input [(ngModel)]="pais.nombre" name="nombre" placeholder="Nombre" class="form-control" minlength="4"
+                maxlength="30" title="Solo letras. Tamaño mínimo: 4. Tamaño máximo: 30" required />
+        </div>
+        <button (click)="goBack()" class="btn" style="border-color: black;"
+            style="background-color: grey;">Atrás</button>
+        &nbsp;
+        <button (click)="save()" [disabled]="!form.valid" class="btn" style="border-color: black;" style="
+            background-color: lightsteelblue;">Guardar</button>
+    </form>
+</div>

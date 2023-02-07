@@ -1,0 +1,65 @@
+<h2>Facturas</h2>
+<form #form="ngForm">
+    <div class="form-group inline">
+        <label for="date">Fecha:</label>
+        <ngb-datepicker name="date" [(ngModel)]="date" required></ngb-datepicker>
+    </div>
+    <button (click)="generar()" [disabled]="!form.valid" class="btn" style="border-color: black;" style="
+    background-color: lightsteelblue;">Generar facturas</button>
+      <br><br>
+      <ngb-alert [hidden]="alert" [type]="type" [dismissible]="false">{{ mensaje }}</ngb-alert>
+</form>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>N°</th>
+                <th>Cliente</th>
+                <th>Razón Social</th>
+                <th>Fecha Emisión</th>
+                <th>Abonada</th>
+                <th></th>
+                <th>Fecha Pago</th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factura of resultsPage.results; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ factura.id }}</td>
+                <td>{{ factura.cliente.cuit }}</td>
+                <td>{{ factura.cliente.razonSocial }}</td>
+                <td>{{ factura.fechaEmision }}</td>
+                <td *ngIf="factura.fechaPago != null; else other_content">SI</td>
+                <td>
+                    <ng-template #other_content>NO</ng-template>
+                </td>
+                <td>{{ factura.fechaPago }}</td>
+                <th>
+                    <a routerLink="/facturas/{{factura.id}}/articulospedido"><i class="fa fa-eye fa-fw" title="Detalle"></i></a>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example" [hidden]="resultsPage.count <= 1">
+        <ul class="pagination pagination-centered">
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-2)">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-1)">&lsaquo;</a>
+            </li>
+            <li *ngFor="let t of pages; trackBy: $index" [ngClass]="{true: 'active'}[t+1 === currentPage]">
+                <a class="page-link" (click)="showPage(t + 1)"> {{t+1}} </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-3)">&rsaquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-4)">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,45 @@
+<h2>Clientes<a routerLink="/clientes/new" class="btn float-right" style="border-color: black;"
+        style="background-color: lightsteelblue;">Nuevo Cliente</a></h2>
+<div class="table-responsive">
+    <ngb-alert [hidden]="alert" [type]="type" [dismissible]="false">{{ mensaje }}</ngb-alert>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Razón social</th>
+                <th>Cuit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of resultsPage.results; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ cliente.razonSocial }}</td>
+                <td>{{ cliente.cuit }}</td>
+                <th>
+                    <a routerLink="/clientes/{{cliente.cuit}}/articulospedido"><i class="fa fa fa-folder-open-o fa-fw" title="Historial"></i></a>
+                    <a routerLink="/clientes/{{cliente.cuit}}/"><i class="fa fa-address-book-o fa-fw" title="Detalle"></i></a>
+                    <a (click)="remove(cliente.id)" [routerLink]=""><i class="fa fa-remove" title="Eliminar"></i></a>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example" [hidden]="resultsPage.count <= 1">
+        <ul class="pagination pagination-centered">
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-2)">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-1)">&lsaquo;</a>
+            </li>
+            <li *ngFor="let t of pages; trackBy: $index" [ngClass]="{true: 'active'}[t+1 === currentPage]">
+                <a class="page-link" (click)="showPage(t + 1)"> {{t+1}} </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-3)">&rsaquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" (click)="showPage(-4)">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>
